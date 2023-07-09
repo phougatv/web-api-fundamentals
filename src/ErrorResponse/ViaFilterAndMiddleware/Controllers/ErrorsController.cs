@@ -18,31 +18,29 @@ public class ErrorsController : ControllerBase
 			return NotFound();
 
 		var exceptionHandlerFeature = HttpContext.Features.Get<IExceptionHandlerFeature>()!;
-		if (exceptionHandlerFeature is not null &&
-			exceptionHandlerFeature.Error is not null)
+		if (exceptionHandlerFeature is null ||
+			exceptionHandlerFeature.Error is null)
 		{
-			if (exceptionHandlerFeature.Error is MyExceptionBase myException)
-			{
-				return Problem(
-					detail: myException.Detail,
-					title: myException.Title,
-					statusCode: myException.StatusCode,
-					instance: exceptionHandlerFeature.Path);
-			}
-			else
-			{
-				return Problem(
-					detail: exceptionHandlerFeature.Error.StackTrace,
-					title: exceptionHandlerFeature.Error.Message,
-					statusCode: Status500InternalServerError,
-					instance: exceptionHandlerFeature.Path);
-			}
-		}
-
-		return Problem(
+			return Problem(
 			title: "Internal Server Error",
 			detail: "You are on your own, start debugging.",
 			statusCode: Status500InternalServerError);
+		}
+
+		if (exceptionHandlerFeature.Error is MyExceptionBase myException)
+		{
+			return Problem(
+				title: myException.Title,
+				detail: myException.Detail,
+				statusCode: myException.StatusCode,
+				instance: exceptionHandlerFeature.Path);
+		}
+
+		return Problem(
+			title: exceptionHandlerFeature.Error.Message,
+			detail: exceptionHandlerFeature.Error.StackTrace,
+			statusCode: Status500InternalServerError,
+			instance: exceptionHandlerFeature.Path);
 	}
 
 	[Route("error")]
