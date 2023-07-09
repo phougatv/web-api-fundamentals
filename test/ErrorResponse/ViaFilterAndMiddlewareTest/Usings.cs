@@ -1,11 +1,16 @@
 global using FluentAssertions;
+global using Microsoft.AspNetCore.Diagnostics;
 global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Http.Features;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Mvc.Abstractions;
 global using Microsoft.AspNetCore.Mvc.Filters;
 global using Microsoft.AspNetCore.Mvc.ModelBinding;
 global using Microsoft.AspNetCore.Routing;
+global using Microsoft.Extensions.Hosting;
+global using Moq;
 global using WebApi.ErrorResponse.ViaFilterAndMiddleware.Controllers;
+global using WebApi.ErrorResponse.ViaFilterAndMiddleware.Exceptions;
 global using WebApi.ErrorResponse.ViaFilterAndMiddleware.Filters;
 global using WebApi.ErrorResponse.ViaFilterAndMiddleware.ViewModels;
 global using Xunit;

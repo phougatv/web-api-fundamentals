@@ -41,7 +41,7 @@ public class ErrorsController : ControllerBase
 
 		return Problem(
 			title: "Internal Server Error",
-			detail: "You are on your own, now start debugging.",
+			detail: "You are on your own, start debugging.",
 			statusCode: Status500InternalServerError);
 	}
 
